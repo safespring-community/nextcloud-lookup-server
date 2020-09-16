@@ -28,10 +28,6 @@ Installation instructions: https://docs.docker.com/compose/install/
 
 Nextcloud's Lookup-Server [documentation](https://github.com/nextcloud/lookup-server).
 
-### Building Docker image
-
-    docker build -t jakubkrzywda/lookup:apache .
-
 ### Deploying Lookup server
 
 #### Configure
@@ -45,7 +41,25 @@ based on *.env_template files.
 
 #### Deploy
 
-    docker-compose up -d
+Use `redeploy.sh` script to build docker images and deploy the complete solution
+
+    ./redeploy.sh
+
+### Redeploy
+
+Use `redeploy.sh` script to redeploy the solution (except the Let's Encrypt container)
+
+    ./redeploy.sh
+
+`-p` - prune docker volumes (except the one with SSL certificates)
+
+### Destroying the deployment
+
+    docker-compose down
+
+    docker volume prune
+
+Warning: do not prune the Let's Encrypt volumes too often, otherwise you might hit a limit on [Certificates per Registered Domain (50 per week)](https://letsencrypt.org/docs/rate-limits/).
 
 ### Debugging
 
